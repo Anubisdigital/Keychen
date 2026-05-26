@@ -368,6 +368,15 @@
                 if (lessText) lessText.style.display = 'none';
             }
         };
+window.closeDevBadge = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const badge = document.getElementById('developerBadge');
+    if (badge) {
+        badge.style.opacity = '0';
+        setTimeout(() => badge.remove(), 400);
+    }
+};
 
         // ── Initialize on page load ─────────────────────────────────────────
         document.addEventListener('DOMContentLoaded', () => {
@@ -412,6 +421,68 @@
     </script>
 
     <style>
+        /* ── DEVELOPER CREDIT BADGE ───────────────────── */
+.dev-credit-badge {
+    position: fixed;
+    bottom: 95px; /* Sits perfectly above the WhatsApp button */
+    right: 25px;
+    background-color: var(--brand-black);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0; /* Forced to 0 radius as requested */
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    z-index: 998;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: var(--transition-smooth);
+}
+
+.dev-badge-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-direction: row-reverse; /* Places text first, then logo image */
+}
+
+.dev-badge-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border-radius: 0; /* Sharp cornered logo image */
+}
+
+.dev-badge-text {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.dev-badge-close {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    background-color: var(--brand-red);
+    color: var(--text-light);
+    border: none;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 0; /* Zero radius cancel box */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.dev-badge-link:hover .dev-badge-text {
+    color: var(--brand-gold);
+}
+
         :root {
             --brand-red: #CC0000;
             --brand-black: #1A1A1A;
@@ -1470,6 +1541,13 @@
 
     <!-- ── WHATSAPP FLOAT ──────────────────────────────────────────────────── -->
     <a href="https://wa.me/256777920311" target="_blank" class="whatsapp-float" aria-label="Contact on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<div id="developerBadge" class="dev-credit-badge">
+    <button class="dev-badge-close" onclick="closeDevBadge(event)" aria-label="Close badge">&times;</button>
+    <a href="https://anubisdigital.github.io/" target="_blank" class="dev-badge-link">
+        <img src="logo.jpg" alt="Logo" class="dev-badge-logo">
+        <span class="dev-badge-text">Made by</span>
+    </a>
+</div>
 
 </body>
 </html>
